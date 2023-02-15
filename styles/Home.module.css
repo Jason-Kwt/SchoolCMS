@@ -20,6 +20,14 @@
   justify-content: center;
   align-items: center;
 }
+.header {
+  display: flex;
+  flex: 1;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eaeaea;
+  justify-content: center;
+  align-items: center;
+}
 
 .footer a {
   display: flex;
@@ -106,6 +114,17 @@
 .logo {
   height: 1em;
   margin-left: 0.5rem;
+}
+
+.inputBox {
+  width: 300px;
+  height: 30px;
+  margin: 5px;
+}
+
+.button {
+  width: 100px;
+  height: 25px;
 }
 
 @media (max-width: 600px) {
