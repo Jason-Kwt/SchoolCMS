@@ -28,20 +28,63 @@ export default function aessCourse() {
   const [selectedRows, setSelectedRows] = useState([]);
   /////////
 
+  // Setup all the data below:
+  /* const [ID, setID] = useState('');
   const [name, setName] = useState('');
-  const [age, setAge] = useState('');
   const [sid, setSID] = useState('');
-  const [ID, setID] = useState('');
+  const [semaster, setSemaster] = useState('');
+  const [courseFee, setCourseFee] = useState(0);
+  const [notesFee, setNotesFee] = useState(0);
+  const [numOfLession, setNumOfLession] = useState(0); */
+  const [courseInfo, setCourseInfo] = useState({
+    courseName: '',
+    courseID: '',
+    courseSemaster: '',
+    courseFee: {
+      tuitionFee: '',
+      notesFee: '',
+    },
+    courseNumOfLession: 0,
+  });
+  const [courseSchedule, setCourseSchudle] = useState({
+    lessionTime: '',
+    lessionDate: '',
+    lessionEveryWeekAt: '',
+  });
+  const [courseState, setCourseState] = useState({
+    courseBegan: '',
+    isOpenForApply: '',
+    courseQuota: '',
+  });
+
   // control button -> Submit | Update btn
   const [isUpdate, setIsUpdate] = useState(false);
   // db array
   const [fireData, setFireData] = useState([]);
 
   const initInputField = () => {
-    setName('');
-    setAge('');
-    setSID('');
-    getData();
+    setCourseInfo({
+      courseName: '',
+      courseID: '',
+      courseSemaster: '',
+      courseFee: {
+        tuitionFee: '',
+        notesFee: '',
+      },
+      courseNumOfLession: 0,
+    });
+    setCourseSchudle({
+      lessionTime: '',
+      lessionDate: '',
+      lessionEveryWeekAt: '',
+    });
+    setCourseInfo({
+      courseBegan: '',
+      isOpenForApply: '',
+      courseQuota: '',
+    });
+    //getData();
+    //router.push('/aessCourse');
   };
 
   // get all data from db
@@ -61,43 +104,46 @@ export default function aessCourse() {
   // Create Data, adding data to db
   const addData = () => {
     addDoc(databaseRef, {
-      name: name,
-      age: Number(age),
-      sid: Number(sid),
+      courseInfo: courseInfo,
+      courseSchedule: courseSchedule,
+      courseState: courseState,
     })
       .then(() => {
         alert('data sent');
-        initInputField();
       })
       .catch((err) => {
         console.log(err);
       });
+    initInputField();
+    //getData();
   };
   //Edit data
-  const getID = (id, sid, name, age) => {
-    setID(id);
-    setSID(sid);
-    setName(name);
-    setAge(age);
+  const getID = (courseInfo, courseSchedule, courseState) => {
+    setCourseInfo(courseInfo);
+    setCourseSchudle(courseSchedule);
+    setCourseState(courseState);
+
     setIsUpdate(true);
-    getData();
+    initInputField();
+    //getData();
   };
   //Update data
   const updateFields = () => {
     let fieldToEdit = doc(database, 'AESS Course Data', ID);
     updateDoc(fieldToEdit, {
-      name: name,
-      sid: Number(sid),
-      age: Number(age),
+      courseInfo: courseInfo,
+      courseSchedule: courseSchedule,
+      courseState: courseState,
     })
       .then(() => {
         alert('Data Updated');
-        initInputField();
         setIsUpdate(false);
       })
       .catch((err) => {
         console.log(err);
       });
+    initInputField();
+    //getData();
   };
   //Delete Data
   const deleteData = (id) => {
@@ -105,11 +151,12 @@ export default function aessCourse() {
     deleteDoc(fieldToEdit)
       .then(() => {
         alert('Data Delete');
-        initInputField();
       })
       .catch((err) => {
         console.log(err);
       });
+    initInputField();
+    //getData();
   };
   // Logout function for btn
   const logout = () => {
@@ -125,8 +172,8 @@ export default function aessCourse() {
   const ExpandedComponent = ({ data }) => {
     return (
       <div>
-        <p>{data.name}</p>
-        <p>{data.sid}</p>
+        <p>{data.courseInfo.courseName}</p>
+        <p>{data.courseInfo.courseID}</p>
       </div>
     );
   };
@@ -136,17 +183,62 @@ export default function aessCourse() {
     () => [
       {
         name: 'Name',
-        selector: (row) => row.name,
+        selector: (row) => row.courseInfo.courseName,
         sortable: true,
       },
       {
-        name: 'SID',
-        selector: (row) => row.sid,
+        name: 'courseID',
+        selector: (row) => row.courseInfo.courseID,
         sortable: true,
       },
       {
-        name: 'Age',
-        selector: (row) => row.age,
+        name: 'semaster',
+        selector: (row) => row.courseInfo.courseSemaster,
+        sortable: true,
+      },
+      {
+        name: 'tuitionFee',
+        selector: (row) => row.courseInfo.courseFee.tuitionFee,
+        sortable: true,
+      },
+      {
+        name: 'notesFee',
+        selector: (row) => row.courseInfo.courseFee.notesFee,
+        sortable: true,
+      },
+      {
+        name: 'numOfLession',
+        selector: (row) => row.courseInfo.courseNumOfLession,
+        sortable: true,
+      },
+      {
+        name: 'lessionTime',
+        selector: (row) => row.courseSchedule.lessionTime,
+        sortable: true,
+      },
+      {
+        name: 'lessionDate',
+        selector: (row) => row.courseSchedule.lessionDate,
+        sortable: true,
+      },
+      {
+        name: 'lessionEveryWeekAt',
+        selector: (row) => row.courseSchedule.lessionEveryWeekAt,
+        sortable: true,
+      },
+      {
+        name: 'courseBegan',
+        selector: (row) => row.courseState.courseBegan,
+        sortable: true,
+      },
+      {
+        name: 'isOpenForApply',
+        selector: (row) => row.courseState.isOpenForApply,
+        sortable: true,
+      },
+      {
+        name: 'courseQuota',
+        selector: (row) => row.courseState.courseQuota,
         sortable: true,
       },
       {
@@ -157,7 +249,14 @@ export default function aessCourse() {
               size="sm"
               className="m-1"
               variant="success"
-              onClick={() => getID(row.id, row.sid, row.name, row.age)}
+              onClick={() =>
+                getID(
+                  row.id,
+                  row.courseSchedule,
+                  row.courseInfo,
+                  row.courseState,
+                )
+              }
             >
               Edit
             </Button>
@@ -211,46 +310,256 @@ export default function aessCourse() {
         <Row>
           <Col>
             <FloatingLabel
-              label="Name"
+              label="courseName"
               className="mb-3"
-              controlId="formBasicName"
+              controlId="formBasicCourseName"
             >
               <Form.Control
                 required
                 type="text"
-                placeholder="Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </FloatingLabel>
-          </Col>
-          <Col>
-            <FloatingLabel label="SID" className="mb-3" controlId="formBasicID">
-              <Form.Control
-                required
-                type="number"
-                placeholder="SID"
-                value={sid}
-                onChange={(e) => setSID(e.target.value)}
+                placeholder="courseName"
+                value={courseInfo.courseName}
+                onChange={(e) =>
+                  setCourseInfo({
+                    ...courseInfo,
+                    courseName: e.target.value,
+                  })
+                }
               />
             </FloatingLabel>
           </Col>
           <Col>
             <FloatingLabel
-              label="Age"
+              label="courseID"
               className="mb-3"
-              controlId="formBasicAge"
+              controlId="formBasicCourseID"
             >
               <Form.Control
                 required
                 type="number"
-                placeholder="Age"
-                value={age}
-                onChange={(e) => setAge(e.target.value)}
+                placeholder="courseID"
+                value={courseInfo.courseID}
+                onChange={(e) =>
+                  setCourseInfo({
+                    ...courseInfo,
+                    courseID: e.target.value,
+                  })
+                }
               />
             </FloatingLabel>
           </Col>
-
+          <Col>
+            <FloatingLabel
+              label="courseSemaster"
+              className="mb-3"
+              controlId="formBasicCourseSemaster"
+            >
+              <Form.Control
+                required
+                type="text"
+                placeholder="courseSemaster"
+                value={courseInfo.courseSemaster}
+                onChange={(e) =>
+                  setCourseInfo({
+                    ...courseInfo,
+                    courseSemaster: e.target.value,
+                  })
+                }
+              />
+            </FloatingLabel>
+          </Col>
+          <Col>
+            <FloatingLabel
+              label="tuitionFee"
+              className="mb-3"
+              controlId="formBasicTuitionFee"
+            >
+              <Form.Control
+                required
+                type="text"
+                placeholder="tuitionFee"
+                value={courseInfo.courseFee[0].tuitionFee}
+                onChange={(e) =>
+                  setCourseInfo({
+                    ...courseInfo,
+                    courseFee: {
+                      ...courseInfo.courseFee,
+                      tuitionFee: e.target.value,
+                    },
+                  })
+                }
+              />
+            </FloatingLabel>
+          </Col>
+          <Col>
+            <FloatingLabel
+              label="notesFee"
+              className="mb-3"
+              controlId="formBasicNotesFee"
+            >
+              <Form.Control
+                required
+                type="text"
+                placeholder="notesFee"
+                value={courseInfo.courseFee.notesFee}
+                onChange={(e) =>
+                  setCourseInfo({
+                    ...courseInfo,
+                    courseFee: {
+                      ...courseInfo.courseFee,
+                      notesFee: e.target.value,
+                    },
+                  })
+                }
+              />
+            </FloatingLabel>
+          </Col>
+          <Col>
+            <FloatingLabel
+              label="courseNumOfLession"
+              className="mb-3"
+              controlId="formBasicCourseNumOfLession"
+            >
+              <Form.Control
+                required
+                type="number"
+                placeholder="courseNumOfLession"
+                value={courseInfo.courseNumOfLession}
+                onChange={(e) =>
+                  setCourseInfo({
+                    ...courseInfo,
+                    courseNumOfLession: e.target.value,
+                  })
+                }
+              />
+            </FloatingLabel>
+          </Col>
+        </Row>
+        // Second ROW
+        <Row>
+          <Col>
+            <FloatingLabel
+              label="lessionTime"
+              className="mb-3"
+              controlId="formBasicLessionTime"
+            >
+              <Form.Control
+                required
+                type="text"
+                placeholder="LessionTime"
+                value={courseSchedule.lessionTime}
+                onChange={(e) =>
+                  setCourseSchudle({
+                    ...courseSchedule,
+                    lessionTime: e.target.value,
+                  })
+                }
+              />
+            </FloatingLabel>
+          </Col>
+          <Col>
+            <FloatingLabel
+              label="lessionDate"
+              className="mb-3"
+              controlId="formBasicLessionDate"
+            >
+              <Form.Control
+                required
+                type="text"
+                placeholder="LessionDate"
+                value={courseSchedule.lessionDate}
+                onChange={(e) =>
+                  setCourseSchudle({
+                    ...courseSchedule,
+                    lessionDate: e.target.value,
+                  })
+                }
+              />
+            </FloatingLabel>
+          </Col>
+          <Col>
+            <FloatingLabel
+              label="lessionEveryWeekAt"
+              className="mb-3"
+              controlId="formBasicLessionEveryWeekAt"
+            >
+              <Form.Control
+                required
+                type="text"
+                placeholder="LessionEveryWeekAt"
+                value={courseSchedule.lessionEveryWeekAt}
+                onChange={(e) =>
+                  setCourseSchudle({
+                    ...courseSchedule,
+                    lessionEveryWeekAt: e.target.value,
+                  })
+                }
+              />
+            </FloatingLabel>
+          </Col>
+          <Col>
+            <FloatingLabel
+              label="courseBegan"
+              className="mb-3"
+              controlId="formBasicLessionCourseBegan"
+            >
+              <Form.Control
+                required
+                type="text"
+                placeholder="CourseBegan"
+                value={courseState.courseBegan}
+                onChange={(e) =>
+                  setCourseState({
+                    ...courseState,
+                    courseBegan: e.target.value,
+                  })
+                }
+              />
+            </FloatingLabel>
+          </Col>
+          <Col>
+            <FloatingLabel
+              label="isOpenForApply"
+              className="mb-3"
+              controlId="formBasicLessionIsOpenForApply"
+            >
+              <Form.Control
+                required
+                type="text"
+                placeholder="IsOpenForApply"
+                value={courseState.isOpenForApply}
+                onChange={(e) =>
+                  setCourseState({
+                    ...courseState,
+                    isOpenForApply: e.target.value,
+                  })
+                }
+              />
+            </FloatingLabel>
+          </Col>
+          <Col>
+            <FloatingLabel
+              label="courseQuota"
+              className="mb-3"
+              controlId="formBasicLessionCourseQuota"
+            >
+              <Form.Control
+                required
+                type="text"
+                placeholder="CourseQuota"
+                value={courseState.courseQuota}
+                onChange={(e) =>
+                  setCourseState({
+                    ...courseState,
+                    courseQuota: e.target.value,
+                  })
+                }
+              />
+            </FloatingLabel>
+          </Col>
+        </Row>
+        //END Second ROW
+        <Row>
           <Col>
             {isUpdate ? (
               <Button size="sm" variant="dark" onClick={updateFields}>

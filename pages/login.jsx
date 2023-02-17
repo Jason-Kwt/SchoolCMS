@@ -28,29 +28,29 @@ export default function Register() {
     let token = sessionStorage.getItem('Token');
 
     if (token) {
-      router.push('/');
+      router.push('/aessCourse');
     }
   });
 
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
+    <div className={{}}>
+      <main className={{}}>
         <h1>Login</h1>
         <input
           placeholder="Email"
-          className={styles.inputBox}
+          className={{}}
           onChange={(e) => setEmail(e.target.value)}
           value={email}
           type="email"
         />
         <input
           placeholder="Password"
-          className={styles.inputBox}
+          className={{}}
           onChange={(e) => setPassword(e.target.value)}
           value={password}
           type="password"
         />
-        <button className={styles.button} onClick={signUp}>
+        <button className={{}} onClick={signUp}>
           Sign In
         </button>
       </main>
