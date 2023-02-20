@@ -20,6 +20,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import DataTable from 'react-data-table-component';
 
+import MyForm from '../components/myForm.jsx';
+
 export default function aessCourse() {
   const databaseRef = collection(database, 'AESS Course Data');
   const router = useRouter();
@@ -45,7 +47,7 @@ export default function aessCourse() {
     notesFee: '',
     courseNumOfLession: '',
   });
-  const [courseSchedule, setCourseSchudle] = useState({
+  const [courseSchedule, setCourseSchedule] = useState({
     lessionTime: '',
     lessionDate: '',
     lessionEveryWeekAt: '',
@@ -70,7 +72,7 @@ export default function aessCourse() {
       notesFee: '',
       courseNumOfLession: '',
     });
-    setCourseSchudle({
+    setCourseSchedule({
       lessionTime: '',
       lessionDate: '',
       lessionEveryWeekAt: '',
@@ -118,7 +120,7 @@ export default function aessCourse() {
   const getID = (id, courseInfo, courseSchedule, courseState) => {
     setID(id);
     setCourseInfo(courseInfo);
-    setCourseSchudle(courseSchedule);
+    setCourseSchedule(courseSchedule);
     setCourseState(courseState);
 
     setIsUpdate(true);
@@ -158,6 +160,28 @@ export default function aessCourse() {
     router.push('/login');
   };
 
+  const handleChange_CourseInfo = (e) => {
+    const { name, value } = e.target;
+    setCourseInfo((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  const handleChange_CourseSchedule = (e) => {
+    const { name, value } = e.target;
+    setCourseSchedule((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  const handleChange_CourseState = (e) => {
+    const { name, value } = e.target;
+    setCourseState((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  //////////////////////////////////////////////////////////////////////////
   const handleChange = useCallback((state) => {
     setSelectedRows(state.selectedRows);
   }, []);
@@ -311,14 +335,10 @@ export default function aessCourse() {
               <Form.Control
                 required
                 type="text"
+                name="courseName"
                 placeholder="courseName"
                 value={courseInfo.courseName}
-                onChange={(e) =>
-                  setCourseInfo({
-                    ...courseInfo,
-                    courseName: e.target.value,
-                  })
-                }
+                onChange={handleChange_CourseInfo}
               />
             </FloatingLabel>
           </Col>
@@ -331,14 +351,10 @@ export default function aessCourse() {
               <Form.Control
                 required
                 type="number"
+                name="courseID"
                 placeholder="courseID"
                 value={courseInfo.courseID}
-                onChange={(e) =>
-                  setCourseInfo({
-                    ...courseInfo,
-                    courseID: e.target.value,
-                  })
-                }
+                onChange={handleChange_CourseInfo}
               />
             </FloatingLabel>
           </Col>
@@ -351,14 +367,10 @@ export default function aessCourse() {
               <Form.Control
                 required
                 type="text"
+                name="courseSemaster"
                 placeholder="courseSemaster"
                 value={courseInfo.courseSemaster}
-                onChange={(e) =>
-                  setCourseInfo({
-                    ...courseInfo,
-                    courseSemaster: e.target.value,
-                  })
-                }
+                onChange={handleChange_CourseInfo}
               />
             </FloatingLabel>
           </Col>
@@ -371,14 +383,10 @@ export default function aessCourse() {
               <Form.Control
                 required
                 type="text"
+                name="tuitionFee"
                 placeholder="tuitionFee"
                 value={courseInfo.tuitionFee}
-                onChange={(e) =>
-                  setCourseInfo({
-                    ...courseInfo,
-                    tuitionFee: e.target.value,
-                  })
-                }
+                onChange={handleChange_CourseInfo}
               />
             </FloatingLabel>
           </Col>
@@ -391,14 +399,10 @@ export default function aessCourse() {
               <Form.Control
                 required
                 type="text"
+                name="notesFee"
                 placeholder="notesFee"
                 value={courseInfo.notesFee}
-                onChange={(e) =>
-                  setCourseInfo({
-                    ...courseInfo,
-                    notesFee: e.target.value,
-                  })
-                }
+                onChange={handleChange_CourseInfo}
               />
             </FloatingLabel>
           </Col>
@@ -411,14 +415,10 @@ export default function aessCourse() {
               <Form.Control
                 required
                 type="number"
+                name="courseNumOfLession"
                 placeholder="courseNumOfLession"
                 value={courseInfo.courseNumOfLession}
-                onChange={(e) =>
-                  setCourseInfo({
-                    ...courseInfo,
-                    courseNumOfLession: e.target.value,
-                  })
-                }
+                onChange={handleChange_CourseInfo}
               />
             </FloatingLabel>
           </Col>
@@ -434,14 +434,10 @@ export default function aessCourse() {
               <Form.Control
                 required
                 type="text"
-                placeholder="LessionTime"
+                name="lessionTime"
+                placeholder="lessionTime"
                 value={courseSchedule.lessionTime}
-                onChange={(e) =>
-                  setCourseSchudle({
-                    ...courseSchedule,
-                    lessionTime: e.target.value,
-                  })
-                }
+                onChange={handleChange_CourseSchedule}
               />
             </FloatingLabel>
           </Col>
@@ -454,14 +450,10 @@ export default function aessCourse() {
               <Form.Control
                 required
                 type="text"
-                placeholder="LessionDate"
+                name="lessionDate"
+                placeholder="lessionDate"
                 value={courseSchedule.lessionDate}
-                onChange={(e) =>
-                  setCourseSchudle({
-                    ...courseSchedule,
-                    lessionDate: e.target.value,
-                  })
-                }
+                onChange={handleChange_CourseSchedule}
               />
             </FloatingLabel>
           </Col>
@@ -474,14 +466,10 @@ export default function aessCourse() {
               <Form.Control
                 required
                 type="text"
-                placeholder="LessionEveryWeekAt"
+                name="lessionEveryWeekAt"
+                placeholder="lessionEveryWeekAt"
                 value={courseSchedule.lessionEveryWeekAt}
-                onChange={(e) =>
-                  setCourseSchudle({
-                    ...courseSchedule,
-                    lessionEveryWeekAt: e.target.value,
-                  })
-                }
+                onChange={handleChange_CourseSchedule}
               />
             </FloatingLabel>
           </Col>
@@ -494,14 +482,10 @@ export default function aessCourse() {
               <Form.Control
                 required
                 type="text"
-                placeholder="CourseBegan"
+                name="courseBegan"
+                placeholder="courseBegan"
                 value={courseState.courseBegan}
-                onChange={(e) =>
-                  setCourseState({
-                    ...courseState,
-                    courseBegan: e.target.value,
-                  })
-                }
+                onChange={handleChange_CourseState}
               />
             </FloatingLabel>
           </Col>
@@ -514,14 +498,10 @@ export default function aessCourse() {
               <Form.Control
                 required
                 type="text"
-                placeholder="IsOpenForApply"
+                name="isOpenForApply"
+                placeholder="isOpenForApply"
                 value={courseState.isOpenForApply}
-                onChange={(e) =>
-                  setCourseState({
-                    ...courseState,
-                    isOpenForApply: e.target.value,
-                  })
-                }
+                onChange={handleChange_CourseState}
               />
             </FloatingLabel>
           </Col>
@@ -534,14 +514,10 @@ export default function aessCourse() {
               <Form.Control
                 required
                 type="text"
-                placeholder="CourseQuota"
+                name="courseQuota"
+                placeholder="courseQuota"
                 value={courseState.courseQuota}
-                onChange={(e) =>
-                  setCourseState({
-                    ...courseState,
-                    courseQuota: e.target.value,
-                  })
-                }
+                onChange={handleChange_CourseState}
               />
             </FloatingLabel>
           </Col>
@@ -558,6 +534,15 @@ export default function aessCourse() {
                 Submit
               </Button>
             )}
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <MyForm
+              name={'courseBegan'}
+              value={courseState.courseBegan}
+              handleChange={handleChange_CourseState}
+            />
           </Col>
         </Row>
       </Form>
