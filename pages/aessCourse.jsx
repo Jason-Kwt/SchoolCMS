@@ -16,29 +16,18 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 import DataTable from 'react-data-table-component';
-
 import MyForm from '../components/myForm.jsx';
 
 export default function aessCourse() {
   const databaseRef = collection(database, 'AESS Course Data');
   const router = useRouter();
-
   ///////////
   const [selectedRows, setSelectedRows] = useState([]);
   /////////
-
   // Setup all the data below:
   const [ID, setID] = useState('');
-  /* 
-  const [name, setName] = useState('');
-  const [sid, setSID] = useState('');
-  const [semaster, setSemaster] = useState('');
-  const [courseFee, setCourseFee] = useState(0);
-  const [notesFee, setNotesFee] = useState(0);
-  const [numOfLession, setNumOfLession] = useState(0); */
   const [courseInfo, setCourseInfo] = useState({
     courseName: '',
     courseID: '',
@@ -153,11 +142,6 @@ export default function aessCourse() {
         console.log(err);
       });
     initInputField();
-  };
-  // Logout function for btn
-  const logout = () => {
-    sessionStorage.removeItem('Token');
-    router.push('/login');
   };
 
   const handleChange_CourseInfo = (e) => {
@@ -312,214 +296,101 @@ export default function aessCourse() {
   }, []);
 
   return (
-    <Container>
-      <div className="row">
-        <div className="col">
-          <h1>Home</h1>
-        </div>
-        <div className="col">
-          <Button size="sm" variant="dark" onClick={logout}>
-            Log Out
-          </Button>
-        </div>
-      </div>
+    <Container fluid>
+      <Row>
+        <Col>
+          <h1>AESS Course</h1>
+        </Col>
+      </Row>
 
       <Form>
         <Row>
           <Col>
-            <FloatingLabel
-              label="courseName"
-              className="mb-3"
-              controlId="formBasicCourseName"
-            >
-              <Form.Control
-                required
-                type="text"
-                name="courseName"
-                placeholder="courseName"
-                value={courseInfo.courseName}
-                onChange={handleChange_CourseInfo}
-              />
-            </FloatingLabel>
+            <MyForm
+              name={'courseName'}
+              value={courseInfo.courseName}
+              handleChange={handleChange_CourseInfo}
+            />
           </Col>
           <Col>
-            <FloatingLabel
-              label="courseID"
-              className="mb-3"
-              controlId="formBasicCourseID"
-            >
-              <Form.Control
-                required
-                type="number"
-                name="courseID"
-                placeholder="courseID"
-                value={courseInfo.courseID}
-                onChange={handleChange_CourseInfo}
-              />
-            </FloatingLabel>
+            <MyForm
+              name={'courseID'}
+              value={courseInfo.courseID}
+              handleChange={handleChange_CourseInfo}
+            />
           </Col>
           <Col>
-            <FloatingLabel
-              label="courseSemaster"
-              className="mb-3"
-              controlId="formBasicCourseSemaster"
-            >
-              <Form.Control
-                required
-                type="text"
-                name="courseSemaster"
-                placeholder="courseSemaster"
-                value={courseInfo.courseSemaster}
-                onChange={handleChange_CourseInfo}
-              />
-            </FloatingLabel>
+            <MyForm
+              name={'courseSemaster'}
+              value={courseInfo.courseSemaster}
+              handleChange={handleChange_CourseInfo}
+            />
           </Col>
           <Col>
-            <FloatingLabel
-              label="tuitionFee"
-              className="mb-3"
-              controlId="formBasicTuitionFee"
-            >
-              <Form.Control
-                required
-                type="text"
-                name="tuitionFee"
-                placeholder="tuitionFee"
-                value={courseInfo.tuitionFee}
-                onChange={handleChange_CourseInfo}
-              />
-            </FloatingLabel>
+            <MyForm
+              name={'tuitionFee'}
+              value={courseInfo.tuitionFee}
+              handleChange={handleChange_CourseInfo}
+            />
           </Col>
           <Col>
-            <FloatingLabel
-              label="notesFee"
-              className="mb-3"
-              controlId="formBasicNotesFee"
-            >
-              <Form.Control
-                required
-                type="text"
-                name="notesFee"
-                placeholder="notesFee"
-                value={courseInfo.notesFee}
-                onChange={handleChange_CourseInfo}
-              />
-            </FloatingLabel>
+            <MyForm
+              name={'notesFee'}
+              value={courseInfo.notesFee}
+              handleChange={handleChange_CourseInfo}
+            />
           </Col>
           <Col>
-            <FloatingLabel
-              label="courseNumOfLession"
-              className="mb-3"
-              controlId="formBasicCourseNumOfLession"
-            >
-              <Form.Control
-                required
-                type="number"
-                name="courseNumOfLession"
-                placeholder="courseNumOfLession"
-                value={courseInfo.courseNumOfLession}
-                onChange={handleChange_CourseInfo}
-              />
-            </FloatingLabel>
+            <MyForm
+              name={'courseNumOfLession'}
+              value={courseInfo.courseNumOfLession}
+              handleChange={handleChange_CourseInfo}
+            />
           </Col>
         </Row>
         // Second ROW
         <Row>
           <Col>
-            <FloatingLabel
-              label="lessionTime"
-              className="mb-3"
-              controlId="formBasicLessionTime"
-            >
-              <Form.Control
-                required
-                type="text"
-                name="lessionTime"
-                placeholder="lessionTime"
-                value={courseSchedule.lessionTime}
-                onChange={handleChange_CourseSchedule}
-              />
-            </FloatingLabel>
+            <MyForm
+              name={'lessionTime'}
+              value={courseSchedule.lessionTime}
+              handleChange={handleChange_CourseSchedule}
+            />
           </Col>
           <Col>
-            <FloatingLabel
-              label="lessionDate"
-              className="mb-3"
-              controlId="formBasicLessionDate"
-            >
-              <Form.Control
-                required
-                type="text"
-                name="lessionDate"
-                placeholder="lessionDate"
-                value={courseSchedule.lessionDate}
-                onChange={handleChange_CourseSchedule}
-              />
-            </FloatingLabel>
+            <MyForm
+              name={'lessionDate'}
+              value={courseSchedule.lessionDate}
+              handleChange={handleChange_CourseSchedule}
+            />
           </Col>
           <Col>
-            <FloatingLabel
-              label="lessionEveryWeekAt"
-              className="mb-3"
-              controlId="formBasicLessionEveryWeekAt"
-            >
-              <Form.Control
-                required
-                type="text"
-                name="lessionEveryWeekAt"
-                placeholder="lessionEveryWeekAt"
-                value={courseSchedule.lessionEveryWeekAt}
-                onChange={handleChange_CourseSchedule}
-              />
-            </FloatingLabel>
+            <MyForm
+              name={'lessionEveryWeekAt'}
+              value={courseSchedule.lessionEveryWeekAt}
+              handleChange={handleChange_CourseSchedule}
+            />
           </Col>
           <Col>
-            <FloatingLabel
-              label="courseBegan"
-              className="mb-3"
-              controlId="formBasicLessionCourseBegan"
-            >
-              <Form.Control
-                required
-                type="text"
-                name="courseBegan"
-                placeholder="courseBegan"
-                value={courseState.courseBegan}
-                onChange={handleChange_CourseState}
-              />
-            </FloatingLabel>
+            <MyForm
+              name={'courseBegan'}
+              value={courseState.courseBegan}
+              handleChange={handleChange_CourseState}
+            />
           </Col>
           <Col>
-            <FloatingLabel
-              label="isOpenForApply"
-              className="mb-3"
-              controlId="formBasicLessionIsOpenForApply"
-            >
-              <Form.Control
-                required
-                type="text"
-                name="isOpenForApply"
-                placeholder="isOpenForApply"
-                value={courseState.isOpenForApply}
-                onChange={handleChange_CourseState}
-              />
-            </FloatingLabel>
+            <MyForm
+              name={'isOpenForApply'}
+              value={courseState.isOpenForApply}
+              handleChange={handleChange_CourseState}
+            />
           </Col>
           <Col>
-            <FloatingLabel
-              label="courseQuota"
-              className="mb-3"
-              controlId="formBasicLessionCourseQuota"
-            >
-              <Form.Control
-                required
-                type="text"
-                name="courseQuota"
-                placeholder="courseQuota"
-                value={courseState.courseQuota}
-                onChange={handleChange_CourseState}
-              />
-            </FloatingLabel>
+            <MyForm
+              name={'courseQuota'}
+              value={courseState.courseQuota}
+              handleChange={handleChange_CourseState}
+            />
           </Col>
         </Row>
         //END Second ROW
@@ -534,15 +405,6 @@ export default function aessCourse() {
                 Submit
               </Button>
             )}
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <MyForm
-              name={'courseBegan'}
-              value={courseState.courseBegan}
-              handleChange={handleChange_CourseState}
-            />
           </Col>
         </Row>
       </Form>
