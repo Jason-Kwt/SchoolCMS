@@ -29,7 +29,8 @@ export default function aessCourse() {
   /////////
 
   // Setup all the data below:
-  /* const [ID, setID] = useState('');
+  const [ID, setID] = useState('');
+  /* 
   const [name, setName] = useState('');
   const [sid, setSID] = useState('');
   const [semaster, setSemaster] = useState('');
@@ -40,11 +41,9 @@ export default function aessCourse() {
     courseName: '',
     courseID: '',
     courseSemaster: '',
-    courseFee: {
-      tuitionFee: '',
-      notesFee: '',
-    },
-    courseNumOfLession: 0,
+    tuitionFee: '',
+    notesFee: '',
+    courseNumOfLession: '',
   });
   const [courseSchedule, setCourseSchudle] = useState({
     lessionTime: '',
@@ -67,23 +66,21 @@ export default function aessCourse() {
       courseName: '',
       courseID: '',
       courseSemaster: '',
-      courseFee: {
-        tuitionFee: '',
-        notesFee: '',
-      },
-      courseNumOfLession: 0,
+      tuitionFee: '',
+      notesFee: '',
+      courseNumOfLession: '',
     });
     setCourseSchudle({
       lessionTime: '',
       lessionDate: '',
       lessionEveryWeekAt: '',
     });
-    setCourseInfo({
+    setCourseState({
       courseBegan: '',
       isOpenForApply: '',
       courseQuota: '',
     });
-    //getData();
+    getData();
     //router.push('/aessCourse');
   };
 
@@ -110,22 +107,21 @@ export default function aessCourse() {
     })
       .then(() => {
         alert('data sent');
+        initInputField();
       })
       .catch((err) => {
         console.log(err);
       });
     initInputField();
-    //getData();
   };
   //Edit data
-  const getID = (courseInfo, courseSchedule, courseState) => {
+  const getID = (id, courseInfo, courseSchedule, courseState) => {
+    setID(id);
     setCourseInfo(courseInfo);
     setCourseSchudle(courseSchedule);
     setCourseState(courseState);
 
     setIsUpdate(true);
-    initInputField();
-    //getData();
   };
   //Update data
   const updateFields = () => {
@@ -136,14 +132,13 @@ export default function aessCourse() {
       courseState: courseState,
     })
       .then(() => {
-        alert('Data Updated');
         setIsUpdate(false);
+        alert('Data Updated');
       })
       .catch((err) => {
         console.log(err);
       });
     initInputField();
-    //getData();
   };
   //Delete Data
   const deleteData = (id) => {
@@ -156,7 +151,6 @@ export default function aessCourse() {
         console.log(err);
       });
     initInputField();
-    //getData();
   };
   // Logout function for btn
   const logout = () => {
@@ -198,12 +192,12 @@ export default function aessCourse() {
       },
       {
         name: 'tuitionFee',
-        selector: (row) => row.courseInfo.courseFee.tuitionFee,
+        selector: (row) => row.courseInfo.tuitionFee,
         sortable: true,
       },
       {
         name: 'notesFee',
-        selector: (row) => row.courseInfo.courseFee.notesFee,
+        selector: (row) => row.courseInfo.notesFee,
         sortable: true,
       },
       {
@@ -252,8 +246,8 @@ export default function aessCourse() {
               onClick={() =>
                 getID(
                   row.id,
-                  row.courseSchedule,
                   row.courseInfo,
+                  row.courseSchedule,
                   row.courseState,
                 )
               }
@@ -378,14 +372,11 @@ export default function aessCourse() {
                 required
                 type="text"
                 placeholder="tuitionFee"
-                value={courseInfo.courseFee[0].tuitionFee}
+                value={courseInfo.tuitionFee}
                 onChange={(e) =>
                   setCourseInfo({
                     ...courseInfo,
-                    courseFee: {
-                      ...courseInfo.courseFee,
-                      tuitionFee: e.target.value,
-                    },
+                    tuitionFee: e.target.value,
                   })
                 }
               />
@@ -401,14 +392,11 @@ export default function aessCourse() {
                 required
                 type="text"
                 placeholder="notesFee"
-                value={courseInfo.courseFee.notesFee}
+                value={courseInfo.notesFee}
                 onChange={(e) =>
                   setCourseInfo({
                     ...courseInfo,
-                    courseFee: {
-                      ...courseInfo.courseFee,
-                      notesFee: e.target.value,
-                    },
+                    notesFee: e.target.value,
                   })
                 }
               />
