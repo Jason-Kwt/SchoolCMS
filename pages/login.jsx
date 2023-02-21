@@ -30,7 +30,7 @@ export default function Login() {
     if (token) {
       router.push('/aessCourse');
     }
-  }, []);
+  });
 
   return (
     <div className={{}}>

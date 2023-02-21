@@ -25,7 +25,7 @@ export default function Register() {
     if (token) {
       router.push('/');
     }
-  }, []);
+  });
 
   return (
     <div className={styles.container}>

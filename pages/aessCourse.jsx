@@ -181,104 +181,96 @@ export default function AessCourse() {
   };
 
   // Table content
-  const colums = useMemo(
-    () => [
-      {
-        name: 'Name',
-        selector: (row) => row.courseInfo.courseName,
-        sortable: true,
-      },
-      {
-        name: 'courseID',
-        selector: (row) => row.courseInfo.courseID,
-        sortable: true,
-      },
-      {
-        name: 'semaster',
-        selector: (row) => row.courseInfo.courseSemaster,
-        sortable: true,
-      },
-      {
-        name: 'tuitionFee',
-        selector: (row) => row.courseInfo.tuitionFee,
-        sortable: true,
-      },
-      {
-        name: 'notesFee',
-        selector: (row) => row.courseInfo.notesFee,
-        sortable: true,
-      },
-      {
-        name: 'numOfLession',
-        selector: (row) => row.courseInfo.courseNumOfLession,
-        sortable: true,
-      },
-      {
-        name: 'lessionTime',
-        selector: (row) => row.courseSchedule.lessionTime,
-        sortable: true,
-      },
-      {
-        name: 'lessionDate',
-        selector: (row) => row.courseSchedule.lessionDate,
-        sortable: true,
-      },
-      {
-        name: 'lessionEveryWeekAt',
-        selector: (row) => row.courseSchedule.lessionEveryWeekAt,
-        sortable: true,
-      },
-      {
-        name: 'courseBegan',
-        selector: (row) => row.courseState.courseBegan,
-        sortable: true,
-      },
-      {
-        name: 'isOpenForApply',
-        selector: (row) => row.courseState.isOpenForApply,
-        sortable: true,
-      },
-      {
-        name: 'courseQuota',
-        selector: (row) => row.courseState.courseQuota,
-        sortable: true,
-      },
-      {
-        name: 'Action',
-        cell: (row) => (
-          <>
-            <Button
-              size="sm"
-              className="m-1"
-              variant="success"
-              onClick={() =>
-                getID(
-                  row.id,
-                  row.courseInfo,
-                  row.courseSchedule,
-                  row.courseState,
-                )
-              }
-            >
-              Edit
-            </Button>
-            <Button
-              size="sm"
-              className="m-1"
-              variant="danger"
-              onClick={() => deleteData(row.id)}
-            >
-              Del
-            </Button>
-          </>
-        ),
-        ignoreRowClick: true,
-        allowOverflow: true,
-        button: true,
-      },
-    ],
-    [],
-  );
+  const colums = useMemo(() => [
+    {
+      name: 'Name',
+      selector: (row) => row.courseInfo.courseName,
+      sortable: true,
+    },
+    {
+      name: 'courseID',
+      selector: (row) => row.courseInfo.courseID,
+      sortable: true,
+    },
+    {
+      name: 'semaster',
+      selector: (row) => row.courseInfo.courseSemaster,
+      sortable: true,
+    },
+    {
+      name: 'tuitionFee',
+      selector: (row) => row.courseInfo.tuitionFee,
+      sortable: true,
+    },
+    {
+      name: 'notesFee',
+      selector: (row) => row.courseInfo.notesFee,
+      sortable: true,
+    },
+    {
+      name: 'numOfLession',
+      selector: (row) => row.courseInfo.courseNumOfLession,
+      sortable: true,
+    },
+    {
+      name: 'lessionTime',
+      selector: (row) => row.courseSchedule.lessionTime,
+      sortable: true,
+    },
+    {
+      name: 'lessionDate',
+      selector: (row) => row.courseSchedule.lessionDate,
+      sortable: true,
+    },
+    {
+      name: 'lessionEveryWeekAt',
+      selector: (row) => row.courseSchedule.lessionEveryWeekAt,
+      sortable: true,
+    },
+    {
+      name: 'courseBegan',
+      selector: (row) => row.courseState.courseBegan,
+      sortable: true,
+    },
+    {
+      name: 'isOpenForApply',
+      selector: (row) => row.courseState.isOpenForApply,
+      sortable: true,
+    },
+    {
+      name: 'courseQuota',
+      selector: (row) => row.courseState.courseQuota,
+      sortable: true,
+    },
+    {
+      name: 'Action',
+      cell: (row) => (
+        <>
+          <Button
+            size="sm"
+            className="m-1"
+            variant="success"
+            onClick={() =>
+              getID(row.id, row.courseInfo, row.courseSchedule, row.courseState)
+            }
+          >
+            Edit
+          </Button>
+          <Button
+            size="sm"
+            className="m-1"
+            variant="danger"
+            onClick={() => deleteData(row.id)}
+          >
+            Del
+          </Button>
+        </>
+      ),
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: true,
+    },
+  ]);
 
   useEffect(() => {
     console.log('state', selectedRows);
@@ -293,7 +285,7 @@ export default function AessCourse() {
     if (token) {
       getData();
     }
-  }, []);
+  });
 
   return (
     <Container fluid>
@@ -348,7 +340,6 @@ export default function AessCourse() {
             />
           </Col>
         </Row>
-        // Second ROW
         <Row>
           <Col>
             <MyForm
@@ -393,7 +384,6 @@ export default function AessCourse() {
             />
           </Col>
         </Row>
-        //END Second ROW
         <Row>
           <Col>
             {isUpdate ? (
