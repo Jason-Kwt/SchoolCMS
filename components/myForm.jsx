@@ -5,7 +5,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-export default function myForm({ name, value, handleChange }) {
+export default function MyForm({ name, value, handleChange }) {
   return (
     <>
       <FloatingLabel

@@ -9,7 +9,7 @@ import Col from 'react-bootstrap/Col';
 import Navbar from 'react-bootstrap/Navbar';
 import Link from 'next/link';
 
-export default function myNavbar() {
+export default function MyNavbar() {
   // Logout function for btn
   const logout = () => {
     sessionStorage.removeItem('Token');

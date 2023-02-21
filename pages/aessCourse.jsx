@@ -18,7 +18,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import DataTable from 'react-data-table-component';
-import MyForm from '../components/myForm.jsx';
+import MyForm from '../components/MyForm.jsx';
 
 export default function aessCourse() {
   const databaseRef = collection(database, 'AESS Course Data');
