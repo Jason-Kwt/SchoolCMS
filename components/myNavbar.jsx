@@ -1,19 +1,16 @@
 import Head from 'next/head';
-import Image from 'next/image';
-import styles from '../styles/Home.module.css';
 import Button from 'react-bootstrap/Button';
-import { useRouter } from 'next/router';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Navbar from 'react-bootstrap/Navbar';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export default function MyNavbar() {
+  const router = useRouter();
   // Logout function for btn
   const logout = () => {
     sessionStorage.removeItem('Token');
-    router.push('/login');
+    router.push('/Login');
   };
 
   return (
@@ -30,7 +27,7 @@ export default function MyNavbar() {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Link href="/">Home</Link>
-            <Link href="/aessCourse">AESS Courses</Link>
+            <Link href="/AessCourse">AESS Courses</Link>
             <Button size="sm" variant="dark" onClick={logout}>
               Log Out
             </Button>

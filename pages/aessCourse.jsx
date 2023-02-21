@@ -280,7 +280,7 @@ export default function AessCourse() {
     // check login token
     let token = sessionStorage.getItem('Token');
     if (!token) {
-      router.push('/login');
+      router.push('/Login');
     }
     if (token) {
       getData();

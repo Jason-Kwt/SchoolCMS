@@ -28,7 +28,7 @@ export default function Login() {
     let token = sessionStorage.getItem('Token');
 
     if (token) {
-      router.push('/aessCourse');
+      router.push('/AessCourse');
     }
   });
 
