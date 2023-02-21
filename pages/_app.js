@@ -1,4 +1,4 @@
-import MyNavbar from '../components/myNavbar.jsx';
+import MyNavbar from '../components/myNavbar';
 import Footer from '../components/footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
