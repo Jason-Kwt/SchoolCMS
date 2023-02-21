@@ -20,7 +20,7 @@ import Col from 'react-bootstrap/Col';
 import DataTable from 'react-data-table-component';
 import MyForm from '../components/MyForm.jsx';
 
-export default function aessCourse() {
+export default function AessCourse() {
   const databaseRef = collection(database, 'AESS Course Data');
   const router = useRouter();
   ///////////

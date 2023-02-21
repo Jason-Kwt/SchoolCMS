@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { app } from '../firebaseConfig.js';
 
-export default function Register() {
+export default function Login() {
   const auth = getAuth();
   const router = useRouter();
   const [email, setEmail] = useState('');
@@ -30,7 +30,7 @@ export default function Register() {
     if (token) {
       router.push('/aessCourse');
     }
-  });
+  }, []);
 
   return (
     <div className={{}}>
