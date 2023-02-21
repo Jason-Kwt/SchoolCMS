@@ -1,3 +1,4 @@
+import React from 'react';
 import Head from 'next/head';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
@@ -5,7 +6,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-export default function MyNavbar() {
+const Header = () => {
   const router = useRouter();
   // Logout function for btn
   const logout = () => {
@@ -27,7 +28,7 @@ export default function MyNavbar() {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Link href="/">Home</Link>
-            <Link href="/AessCourse">AESS Courses</Link>
+            <Link href="/Aesscourse">AESS Courses</Link>
             <Button size="sm" variant="dark" onClick={logout}>
               Log Out
             </Button>
@@ -36,4 +37,6 @@ export default function MyNavbar() {
       </Navbar>
     </>
   );
-}
+};
+
+export default Header;

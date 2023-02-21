@@ -1,11 +1,12 @@
-import MyNavbar from '../components/myNavbar';
-import Footer from '../components/footer';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <MyNavbar />
+      <Header />
       <Component {...pageProps} />
       <Footer />
     </>

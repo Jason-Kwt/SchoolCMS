@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import React from 'react';
 import { useEffect, useState, useMemo, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { app, database } from '../firebaseConfig.js';
@@ -12,15 +12,14 @@ import {
 } from 'firebase/firestore';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import DataTable from 'react-data-table-component';
-import MyForm from '../components/MyForm.jsx';
+import InputForm from '../components/InputForm.js';
 
-export default function AessCourse() {
+const Aesscourse = () => {
   const databaseRef = collection(database, 'AESS Course Data');
   const router = useRouter();
   ///////////
@@ -181,96 +180,105 @@ export default function AessCourse() {
   };
 
   // Table content
-  const colums = useMemo(() => [
-    {
-      name: 'Name',
-      selector: (row) => row.courseInfo.courseName,
-      sortable: true,
-    },
-    {
-      name: 'courseID',
-      selector: (row) => row.courseInfo.courseID,
-      sortable: true,
-    },
-    {
-      name: 'semaster',
-      selector: (row) => row.courseInfo.courseSemaster,
-      sortable: true,
-    },
-    {
-      name: 'tuitionFee',
-      selector: (row) => row.courseInfo.tuitionFee,
-      sortable: true,
-    },
-    {
-      name: 'notesFee',
-      selector: (row) => row.courseInfo.notesFee,
-      sortable: true,
-    },
-    {
-      name: 'numOfLession',
-      selector: (row) => row.courseInfo.courseNumOfLession,
-      sortable: true,
-    },
-    {
-      name: 'lessionTime',
-      selector: (row) => row.courseSchedule.lessionTime,
-      sortable: true,
-    },
-    {
-      name: 'lessionDate',
-      selector: (row) => row.courseSchedule.lessionDate,
-      sortable: true,
-    },
-    {
-      name: 'lessionEveryWeekAt',
-      selector: (row) => row.courseSchedule.lessionEveryWeekAt,
-      sortable: true,
-    },
-    {
-      name: 'courseBegan',
-      selector: (row) => row.courseState.courseBegan,
-      sortable: true,
-    },
-    {
-      name: 'isOpenForApply',
-      selector: (row) => row.courseState.isOpenForApply,
-      sortable: true,
-    },
-    {
-      name: 'courseQuota',
-      selector: (row) => row.courseState.courseQuota,
-      sortable: true,
-    },
-    {
-      name: 'Action',
-      cell: (row) => (
-        <>
-          <Button
-            size="sm"
-            className="m-1"
-            variant="success"
-            onClick={() =>
-              getID(row.id, row.courseInfo, row.courseSchedule, row.courseState)
-            }
-          >
-            Edit
-          </Button>
-          <Button
-            size="sm"
-            className="m-1"
-            variant="danger"
-            onClick={() => deleteData(row.id)}
-          >
-            Del
-          </Button>
-        </>
-      ),
-      ignoreRowClick: true,
-      allowOverflow: true,
-      button: true,
-    },
-  ]);
+  const colums = useMemo(
+    () => [
+      {
+        name: 'Name',
+        selector: (row) => row.courseInfo.courseName,
+        sortable: true,
+      },
+      {
+        name: 'courseID',
+        selector: (row) => row.courseInfo.courseID,
+        sortable: true,
+      },
+      {
+        name: 'semaster',
+        selector: (row) => row.courseInfo.courseSemaster,
+        sortable: true,
+      },
+      {
+        name: 'tuitionFee',
+        selector: (row) => row.courseInfo.tuitionFee,
+        sortable: true,
+      },
+      {
+        name: 'notesFee',
+        selector: (row) => row.courseInfo.notesFee,
+        sortable: true,
+      },
+      {
+        name: 'numOfLession',
+        selector: (row) => row.courseInfo.courseNumOfLession,
+        sortable: true,
+      },
+      {
+        name: 'lessionTime',
+        selector: (row) => row.courseSchedule.lessionTime,
+        sortable: true,
+      },
+      {
+        name: 'lessionDate',
+        selector: (row) => row.courseSchedule.lessionDate,
+        sortable: true,
+      },
+      {
+        name: 'lessionEveryWeekAt',
+        selector: (row) => row.courseSchedule.lessionEveryWeekAt,
+        sortable: true,
+      },
+      {
+        name: 'courseBegan',
+        selector: (row) => row.courseState.courseBegan,
+        sortable: true,
+      },
+      {
+        name: 'isOpenForApply',
+        selector: (row) => row.courseState.isOpenForApply,
+        sortable: true,
+      },
+      {
+        name: 'courseQuota',
+        selector: (row) => row.courseState.courseQuota,
+        sortable: true,
+      },
+      {
+        name: 'Action',
+        cell: (row) => (
+          <>
+            <Button
+              size="sm"
+              className="m-1"
+              variant="success"
+              onClick={() =>
+                getID(
+                  row.id,
+                  row.courseInfo,
+                  row.courseSchedule,
+                  row.courseState,
+                )
+              }
+            >
+              Edit
+            </Button>
+            <Button
+              size="sm"
+              className="m-1"
+              variant="danger"
+              onClick={() => deleteData(row.id)}
+            >
+              Del
+            </Button>
+          </>
+        ),
+        ignoreRowClick: true,
+        allowOverflow: true,
+        button: true,
+      },
+      ,
+    ],
+    [],
+  );
 
   useEffect(() => {
     console.log('state', selectedRows);
@@ -298,42 +306,42 @@ export default function AessCourse() {
       <Form>
         <Row>
           <Col>
-            <MyForm
+            <InputForm
               name={'courseName'}
               value={courseInfo.courseName}
               handleChange={handleChange_CourseInfo}
             />
           </Col>
           <Col>
-            <MyForm
+            <InputForm
               name={'courseID'}
               value={courseInfo.courseID}
               handleChange={handleChange_CourseInfo}
             />
           </Col>
           <Col>
-            <MyForm
+            <InputForm
               name={'courseSemaster'}
               value={courseInfo.courseSemaster}
               handleChange={handleChange_CourseInfo}
             />
           </Col>
           <Col>
-            <MyForm
+            <InputForm
               name={'tuitionFee'}
               value={courseInfo.tuitionFee}
               handleChange={handleChange_CourseInfo}
             />
           </Col>
           <Col>
-            <MyForm
+            <InputForm
               name={'notesFee'}
               value={courseInfo.notesFee}
               handleChange={handleChange_CourseInfo}
             />
           </Col>
           <Col>
-            <MyForm
+            <InputForm
               name={'courseNumOfLession'}
               value={courseInfo.courseNumOfLession}
               handleChange={handleChange_CourseInfo}
@@ -342,42 +350,42 @@ export default function AessCourse() {
         </Row>
         <Row>
           <Col>
-            <MyForm
+            <InputForm
               name={'lessionTime'}
               value={courseSchedule.lessionTime}
               handleChange={handleChange_CourseSchedule}
             />
           </Col>
           <Col>
-            <MyForm
+            <InputForm
               name={'lessionDate'}
               value={courseSchedule.lessionDate}
               handleChange={handleChange_CourseSchedule}
             />
           </Col>
           <Col>
-            <MyForm
+            <InputForm
               name={'lessionEveryWeekAt'}
               value={courseSchedule.lessionEveryWeekAt}
               handleChange={handleChange_CourseSchedule}
             />
           </Col>
           <Col>
-            <MyForm
+            <InputForm
               name={'courseBegan'}
               value={courseState.courseBegan}
               handleChange={handleChange_CourseState}
             />
           </Col>
           <Col>
-            <MyForm
+            <InputForm
               name={'isOpenForApply'}
               value={courseState.isOpenForApply}
               handleChange={handleChange_CourseState}
             />
           </Col>
           <Col>
-            <MyForm
+            <InputForm
               name={'courseQuota'}
               value={courseState.courseQuota}
               handleChange={handleChange_CourseState}
@@ -412,4 +420,6 @@ export default function AessCourse() {
       ></DataTable>
     </Container>
   );
-}
+};
+
+export default Aesscourse;

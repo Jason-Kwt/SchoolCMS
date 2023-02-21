@@ -1,12 +1,11 @@
-import Image from 'next/image';
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-
 //Firebase
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { app } from '../firebaseConfig.js';
 
-export default function Login() {
+const Login = () => {
   const auth = getAuth();
   const router = useRouter();
   const [email, setEmail] = useState('');
@@ -28,7 +27,7 @@ export default function Login() {
     let token = sessionStorage.getItem('Token');
 
     if (token) {
-      router.push('/AessCourse');
+      router.push('/Aesscourse');
     }
   });
 
@@ -56,4 +55,6 @@ export default function Login() {
       </main>
     </div>
   );
-}
+};
+
+export default Login;
